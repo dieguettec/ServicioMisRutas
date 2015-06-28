@@ -2,3 +2,8 @@
  * New node file
  */
 console.log('Hola mundo!!');
+
+var express = require('express');
+var app = express(); 
+app.use(express.static('static')); 
+app.listen(8080);

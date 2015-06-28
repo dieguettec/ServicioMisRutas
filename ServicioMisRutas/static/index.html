@@ -1,0 +1,109 @@
+<!--  PRUEBA  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css" />
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="js/externo/jquery-1.11.3.js"></script>
+<script src="js/externo/jquery.mobile-1.4.5.js"></script>
+<script src="js/externo/underscore.js"></script>
+<script src="js/externo/backbone.js"></script>
+<script src="js/modelos/Ruta.js"></script>
+<script src="js/modelos/Rutas.js"></script>
+<script src="js/vistas/NuevaRuta.js"></script>
+<script src="js/vistas/EditarRuta.js"></script>
+<script src="js/vistas/ListaRutas.js"></script>
+<script src="js/vistas/Mapa.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+</head>
+<body>
+
+	<!-- La ventana principal -->
+	<div id="pgHome" data-role="page">
+		<div data-role="header">
+			<h1>Mis rutas</h1>
+		</div>
+		<div class="ui-content"></div>
+		<input id="txtTitulo" type="text" placeholder="T&iacute;tulo">
+		<input id="btGrabar" type="button" value="Empezar Ruta"> <input
+			id="btFoto" type="button" value="Adjuntar Foto">
+		<div id="pnInfo">
+			<p id="lblInfo">Grabando ruta XXX</p>
+			<p id="lblReloj">00:00:00</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#pgHome" class="ui-btn-active ui-state-persist"
+						data-icon="home">Principal</a></li>
+					<li><a href="#pgMisRutas" data-icon="search">Mis rutas</a></li>
+					<li><a href="#pgMapa" data-icon="navigation">Mapa</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!--   La ventana de mis rutas -->
+	<div id="pgMisRutas" data-role="page">
+		<div data-role="header">
+			<h1>Mis rutas</h1>
+		</div>
+		<div class="ui-content"></div>
+		<div id="pnRutas"></div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#pgHome" data-icon="home">Principal</a></li>
+					<li><a href="#pgMisRutas"
+						class="ui-btn-active ui-state-persist" data-icon="search">Mis
+							rutas</a></li>
+					<li><a href="#pgMapa" data-icon="navigation">Mapa</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- La ventana de editar ruta -->
+	<div id="pgEditarRuta" data-role="page">
+		<div data-role="header" data-add-back-btn="true"
+			data-back-btn-text="Atr&aacute;s">
+			<h1>Editar Ruta</h1>
+		</div>
+		<div class="ui-content">
+			<input id="txtEditarTitulo" type="text"> <input
+				id="txtEditarFecha" type="text" disabled> <input
+				id="txtEditarColor" type="color"> <label
+				for="txtEditarVisualizar">Visualizar:</label> <select
+				id="txtEditarVisualizar" data-role="flipswitch">
+				<option value="off">Off</option>
+				<option value="on">On</option>
+			</select> <input id="btBorrar" type="button" value="Borrar">
+		</div>
+	</div>
+
+	<!--  La ventana de mapa -->
+	<div id="pgMapa" data-role="page">
+		<div data-role="header">
+			<h1>Mis rutas</h1>
+		</div>
+		<div class="ui-content"></div>
+		<div data-role="popup" id="popupPhoto" data-overlay-theme="a" data-theme="d" data-corners="false">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<img id="poppphoto">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#pgHome" data-icon="home">Principal</a></li>
+					<li><a href="#pgMisRutas" data-icon="search">Mis rutas</a></li>
+					<li><a href="#pgMapa" data-icon="navigation"
+						class="ui-btn-active ui-state-persist">Mapa</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
