@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css" />
+<script src="js/externo/jquery-1.11.3.js"></script>
+<script src="js/externo/jquery.mobile-1.4.5.js"></script>
+<script src="js/externo/underscore.js"></script>
+<script src="js/externo/backbone.js"></script>
+<script>
+	$(function() {
+		$('#todos').click(
+				function() { /* mostrar todas las rutas */
+					$.ajax({
+						url : 'http://localhost:8080/misrutas/rutas',
+						method : 'GET',
+						dataType : 'json',
+						success : function(data, text, xhr) {
+							$('#info').html('Success: ' + text + '<br>');
+							for (var i = 0; i < data.length; i++)
+								$('#info').append(
+										'<p>' + JSON.stringify(data[i])
+												+ '</p>');
+						},
+						error : function(xhr, text, error) {
+							$('#info').html('Error ' + text + '<br>' + error);
+						}
+					});
+				});
+		$('#buscar').click(
+				function() { /* mostrar una ruta en concreto */
+					$.ajax({
+						url : 'http://localhost:8080/misrutas/rutas/' + $('#txtId').val(),
+						method : 'GET',
+						dataType : 'json',
+						success : function(data, text, xhr) {
+							$('#info').html('Success: ' + text + '<br>');
+							$('#info').append(
+									'<p>' + JSON.stringify(data) + '</p>');
+						},
+						error : function(xhr, text, error) {
+							$('#info').html('Error ' + text + '<br>' + error);
+						}
+					});
+				});
+		$('#nuevo').click(function() { /* crear una nueva ruta */
+			$.ajax({
+				url : 'http://localhost:8080/misrutas/rutas',
+				method : 'POST',
+				dataType : 'json',
+				data : JSON.stringify({
+					titulo : $('#txtTitulo').val()
+				}),
+				processData : false,
+				contentType : 'application/json; charset=utf-8',
+				success : function(data, text, xhr) {
+					$('#info').html('Success: ' + text + '<br>');
+					$('#info').append('<p>' + JSON.stringify(data) + '</p>');
+				},
+				error : function(xhr, text, error) {
+					$('#info').html('Error ' + text + '<br>' + error);
+				}
+			});
+		});
+		$('#actualizar').click(function() { /* actualizar una ruta */
+			$.ajax({
+				url : 'http://localhost:8080/misrutas/rutas/'
+						+ $('#txtId').val(),
+				method : 'PUT',
+				dataType : 'json',
+				data : JSON.stringify({
+					id : $('#txtId').val(),
+					titulo : $('#txtTitulo').val()
+				}),
+				processData : false,
+				contentType : 'application/json; charset=utf-8',
+				success : function(data, text, xhr) {
+					$('#info').html('Success: ' + text + '<br>');
+					$('#info').append(
+							'<p>' + JSON.stringify(data) + '</p>');
+				},
+				error : function(xhr, text, error) {
+					$('#info').html('Error ' + text + '<br>' + error);
+				}
+			});
+		});
+		$('#eliminar').click(function() { /* eliminar una ruta */
+			$.ajax({
+				url : 'http://localhost:8080/misrutas/rutas/'
+						+ $('#txtId').val(),
+				method : 'DELETE',
+				success : function(data, text, xhr) {
+					$('#info').html('Success: ' + text + '<br>');
+				},
+				error : function(xhr, text, error) {
+					$('#info').html('Error ' + text + '<br>' + error);
+				}
+			});
+
+		});
+	});
+</script>
+</head>
+<body>
+	<p>
+		ID: <input type="text" id="txtId" name="txtId">
+	</p>
+	<p>
+		T&iacute;tulo: <input type="text" id="txtTitulo" name="txtTitulo">
+	</p>
+	<a href="#" id="todos">Todos</a>&nbsp;
+	<a href="#" id="buscar">Buscar</a>&nbsp;
+	<a href="#" id="nuevo">Nuevo</a>&nbsp;
+	<a href="#" id="actualizar">Actualizar</a>&nbsp;
+	<a href="#" id="eliminar">Eliminar</a>
+	<div id="info"</div>
+</body>
+</html>
