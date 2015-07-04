@@ -114,12 +114,11 @@ var NuevaRuta = Backbone.View.extend({
 	captureImage : function() {
 		// Launch device camera application,
 		// allowing user to capture up to 1 images
-		//navigator.device.capture.captureImage(this.captureSuccess, this.captureError, {	limit : 1 });
-		//navigator.camera.getPicture(this.captureSuccess, this.captureError, {	limit : 1 });
 		var self =  this;
 		navigator.device.capture.captureImage(
 			function(mediaFiles) { self.grabarMarker(mediaFiles[0].fullPath); },
 			this.captureError, {	limit : 1 });
+		 
 	},
 
 	// Called when capture operation is finished
@@ -164,8 +163,13 @@ var NuevaRuta = Backbone.View.extend({
 				this.empezarRuta();
 		},
 		'click #btFoto' : function() {
-			if (this.grabando)
-				this.captureImage();
+			if (this.grabando) {
+				// llamamos a la camara para capturar imagen
+				//this.captureImage();
+				// llamamos directamente a la funcion con la ruta de la imagen
+				this.grabarMarker('/images/colorful-city.jpg');
+			}
+				
 		}
 	}
 });

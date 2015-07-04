@@ -37,6 +37,7 @@ var Mapa = Backbone.View.extend({
 					self.render();
 				});
 		// controlar cambios en el modelo
+		/*
 		this.collection.on('change:color', function() {
 			self.render();
 		});
@@ -47,6 +48,13 @@ var Mapa = Backbone.View.extend({
 			self.render();
 		});
 		this.collection.on('remove', function() {
+			self.render();
+		});
+		 */
+		this.collection.on('remove', function() {
+			self.render();
+		});
+		this.collection.on('sync', function() {
 			self.render();
 		});
 	},
@@ -73,13 +81,12 @@ var Mapa = Backbone.View.extend({
 				self.polylines.push(polyline);
 
 				ruta.get('fotos').forEach(function(foto) {
-					console.log('mapa.render(' + foto.uri + ')');
+					//console.log('mapa.render(' + foto.uri + ')');
 					var marker = new google.maps.Marker({
 						position : new google.maps.LatLng(foto.lat, foto.lng),
 						map : self.map,
 						title : 'photo'
 					});
-
 					google.maps.event.addListener(marker, 'click', function() {
 						self.$('#poppphoto').attr("src", foto.uri);
 						self.$('#popupPhoto').popup("open", {
@@ -87,6 +94,7 @@ var Mapa = Backbone.View.extend({
 						});
 					});
 				});
+
 			}
 		});
 	}
