@@ -33,6 +33,7 @@ var Mapa = Backbone.View.extend({
 					self.map = new google.maps.Map(self.$('#pnMapa')[0],
 							myOptions);
 					self.polylines = new Array();
+					self.markers = new Array();
 					// pintar
 					self.render();
 				});
@@ -63,6 +64,10 @@ var Mapa = Backbone.View.extend({
 		for (var i = 0; i < this.polylines.length; i++)
 			this.polylines[i].setMap(null);
 		this.polylines = [];
+		// limpiar todas las fotos pintadas
+		for (var i = 0; i < this.markers.length; i++)
+			this.markers[i].setMap(null);
+		this.markers = [];
 		// pintar las rutas
 		var self = this;
 		this.collection.forEach(function(ruta) {
@@ -92,9 +97,11 @@ var Mapa = Backbone.View.extend({
 						self.$('#popupPhoto').popup("open", {
 							transition : 'fade'
 						});
-					});
+					});					
+					// guardar informacion sobre las fotos pintadas
+					self.markers.push(marker);
 				});
-
+				
 			}
 		});
 	}
